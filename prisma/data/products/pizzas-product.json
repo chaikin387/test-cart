@@ -1,0 +1,311 @@
+[
+	{
+		"name": "Карбонара",
+		"description": "Классическая пицца с ветчиной и моцареллой",
+		"category": "Пиццы",
+		"variants": [
+			{
+				"name": "Традиционное 20 см",
+				"price": 350,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "20 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/carbonara/1-20.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Традиционное 25 см",
+				"price": 450,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "25 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/carbonara/1-25.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Традиционное 30 см",
+				"price": 650,
+				"isDefault": true,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "30 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/carbonara/1-30.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Традиционное 35 см",
+				"price": 800,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "35 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/carbonara/1-35.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Тонкое 30 см",
+				"price": 640,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Тонкое" },
+					{ "attributeName": "Размер", "value": "30 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/carbonara/2-30.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Тонкое 35 см",
+				"price": 790,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Тонкое" },
+					{ "attributeName": "Размер", "value": "35 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/carbonara/2-35.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "Бургер-пицца",
+		"description": "Пицца с пряной говядиной и сыром чеддер",
+		"category": "Пиццы",
+		"variants": [
+			{
+				"name": "Традиционное 20 см",
+				"price": 420,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "20 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/burger_pizza/1-20.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Традиционное 25 см",
+				"price": 520,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "25 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/burger_pizza/1-25.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Традиционное 30 см",
+				"price": 720,
+				"isDefault": true,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "30 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/burger_pizza/1-30.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Традиционное 35 см",
+				"price": 920,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "35 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/burger_pizza/1-35.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Тонкое 30 см",
+				"price": 710,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Тонкое" },
+					{ "attributeName": "Размер", "value": "30 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/burger_pizza/2-30.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Тонкое 35 см",
+				"price": 910,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Тонкое" },
+					{ "attributeName": "Размер", "value": "35 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/burger_pizza/2-35.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			}
+		]
+	},
+	{
+		"name": "Маргарита",
+		"description": "Традиционная пицца с томатами и моцареллой",
+		"category": "Пиццы",
+		"variants": [
+			{
+				"name": "Традиционное 20 см",
+				"price": 550,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "20 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/margarita/1-20.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Традиционное 25 см",
+				"price": 650,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "25 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/margarita/1-25.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Традиционное 30 см",
+				"price": 750,
+				"isDefault": true,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "30 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/margarita/1-30.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Традиционное 35 см",
+				"price": 950,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Традиционное" },
+					{ "attributeName": "Размер", "value": "35 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/margarita/1-35.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Тонкое 30 см",
+				"price": 740,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Тонкое" },
+					{ "attributeName": "Размер", "value": "30 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/margarita/2-30.avif",
+						"alt": "Четыре сыра Тонкое 30 см",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Тонкое 35 см",
+				"price": 940,
+				"isDefault": false,
+				"attributes": [
+					{ "attributeName": "Тип теста", "value": "Тонкое" },
+					{ "attributeName": "Размер", "value": "35 см" }
+				],
+				"images": [
+					{
+						"url": "/images/pizza/margarita/2-35.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			}
+		]
+	}
+]

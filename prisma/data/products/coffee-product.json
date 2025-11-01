@@ -1,0 +1,77 @@
+[
+	{
+		"name": "Кофе Американо",
+		"description": "Классический американо с насыщенным вкусом",
+		"category": "Кофе",
+		"variants": [
+			{
+				"name": "Маленький 0.2 л",
+				"price": 130,
+				"isDefault": true,
+				"attributes": [{ "attributeName": "Объем", "value": "0.2 л" }],
+				"images": [
+					{
+						"url": "/images/kofe/amerikano/amerikano-200.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			},
+			{
+				"name": "Средний 0.3 л",
+				"price": 170,
+				"isDefault": false,
+				"attributes": [{ "attributeName": "Объем", "value": "0.3 л" }],
+				"images": [
+					{
+						"url": "/images/kofe/amerikano/amerikano-300.avif",
+						"alt": "Эспрессо двойной",
+						"position": 1
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"name": "Капучино Яблочный пирог",
+		"description": "Капучино с нотками яблочного пирога",
+		"category": "Кофе",
+		"variants": [
+			{
+				"name": "Маленький 0.2 л",
+				"price": 130,
+				"isDefault": true,
+				"attributes": [{ "attributeName": "Объем", "value": "0.2 л" }],
+				"images": [
+					{
+						"url": "/images/kofe/capuccino_yablochniy.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			}
+		]
+	},
+
+	{
+		"name": "Кофе Латте",
+		"description": "Нежный латте с кремовой пенкой",
+		"category": "Кофе",
+		"variants": [
+			{
+				"name": "Маленький 0.2 л",
+				"price": 240,
+				"isDefault": true,
+				"attributes": [{ "attributeName": "Объем", "value": "0.2 л" }],
+				"images": [
+					{
+						"url": "/images/kofe/latte.avif",
+						"alt": "",
+						"position": 0
+					}
+				]
+			}
+		]
+	}
+]

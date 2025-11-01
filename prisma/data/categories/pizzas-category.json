@@ -1,0 +1,31 @@
+[
+	{
+		"name": "Пиццы",
+		"attributes": [
+			{
+				"name": "Тип теста",
+				"type": "SELECT",
+				"isRequired": true,
+				"position": 0,
+				"icon": "pizza",
+				"values": [
+					{ "value": "Традиционное", "position": 0 },
+					{ "value": "Тонкое", "position": 1 }
+				]
+			},
+			{
+				"name": "Размер",
+				"type": "SELECT",
+				"isRequired": true,
+				"position": 1,
+				"icon": "ruler",
+				"values": [
+					{ "value": "20 см", "position": 0 },
+					{ "value": "25 см", "position": 1 },
+					{ "value": "30 см", "position": 2 },
+					{ "value": "35 см", "position": 3 }
+				]
+			}
+		]
+	}
+]
