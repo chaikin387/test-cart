@@ -1,4 +1,32 @@
+# Базовые настройки
 * text=auto
-*.{js,jsx,ts,tsx,json,css,scss,md,html,yml,yaml} text eol=lf
-*.{bat,cmd} text eol=crlf
-*.{png,jpg,jpeg,gif,ico,svg,woff,woff2,ttf,eot,pdf} binary
+
+# Весь код с LF
+*.ts text eol=lf
+*.tsx text eol=lf
+*.js text eol=lf
+*.jsx text eol=lf
+*.mjs text eol=lf
+*.cjs text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.config.* text eol=lf
+
+# Конфиги проекта
+.env text eol=lf
+.gitignore text eol=lf
+.prettierrc text eol=lf
+next.config.ts text eol=lf
+
+# Бинарные файлы
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.svg binary
+*.woff binary
+*.woff2 binary
+
+# Lock файлы
+package-lock.json binary
