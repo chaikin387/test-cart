@@ -1,4 +1,4 @@
-import { CategoryWithProducts, homeCategorySelect } from '@/types'
+import { CategoryWithProducts, categoryWithProductsSelect } from '@/types/selects'
 
 import prisma from './prisma'
 
@@ -13,7 +13,7 @@ export async function getActiveCategories(): Promise<CategoryWithProducts[]> {
 				},
 			},
 		},
-		select: homeCategorySelect,
+		select: categoryWithProductsSelect,
 		orderBy: { id: 'asc' },
 	})
 }

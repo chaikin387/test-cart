@@ -1,11 +1,8 @@
-import { ProductPageData, productPageSelect } from '@/types'
+import { ProductPage, productPageSelect } from '@/types/selects'
 
 import prisma from './prisma'
 
-export async function getProductWithRelations(
-	categorySlug: string,
-	productSlug: string,
-): Promise<ProductPageData | null> {
+export async function getProductWithRelations(categorySlug: string, productSlug: string): Promise<ProductPage | null> {
 	return prisma.product.findFirst({
 		where: {
 			slug: productSlug,

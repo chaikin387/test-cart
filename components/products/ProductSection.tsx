@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import { useDebouncedCallback } from 'use-debounce'
 
 import { useCategoryStore } from '@/store/category-store'
-import { CategoryWithProducts } from '@/types/category'
+import { CategoryWithProducts } from '@/types/selects'
 
 import { ProductCard } from './ProductCard'
 

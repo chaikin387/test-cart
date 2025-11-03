@@ -211,22 +211,6 @@
 		"category": "Пиццы",
 		"variants": [
 			{
-				"name": "Традиционное 20 см",
-				"price": 550,
-				"isDefault": false,
-				"attributes": [
-					{ "attributeName": "Тип теста", "value": "Традиционное" },
-					{ "attributeName": "Размер", "value": "20 см" }
-				],
-				"images": [
-					{
-						"url": "/images/pizza/margarita/1-20.avif",
-						"alt": "",
-						"position": 0
-					}
-				]
-			},
-			{
 				"name": "Традиционное 25 см",
 				"price": 650,
 				"isDefault": false,
