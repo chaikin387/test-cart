@@ -5,7 +5,7 @@ import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { CategoryWithProducts } from '@/types/category'
+import { CategoryWithProducts } from '@/types/selects'
 
 import { Container } from '../container/Container'
 import { CategoryMenu } from './CategoryMenu'

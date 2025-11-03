@@ -16,7 +16,7 @@ export function ModalProducts() {
 			<DialogTrigger asChild>
 				<Button
 					variant='secondary'
-					className='bg-background/95 hover:bg-background w-full shadow-md backdrop-blur-sm'
+					className='w-full border bg-white shadow-md hover:bg-gray-50'
 					size='sm'
 				>
 					Быстрый просмотр

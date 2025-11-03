@@ -2,7 +2,7 @@
 
 import { Coffee, Pizza, Ruler } from 'lucide-react'
 
-import { AttributeGroup } from '@/types'
+import { AttributeWithValues } from '@/types/selects'
 
 const iconMap: Record<string, React.ElementType> = {
 	coffee: Coffee,
@@ -11,7 +11,7 @@ const iconMap: Record<string, React.ElementType> = {
 }
 
 interface ProductInfoProps {
-	attributes: AttributeGroup[]
+	attributes: AttributeWithValues[]
 	selectedValues: Record<string, string>
 }
 
@@ -19,7 +19,7 @@ export function ProductInfo({ attributes, selectedValues }: ProductInfoProps) {
 	return (
 		<div className='bg-accent flex flex-wrap gap-4 rounded-2xl p-4 text-sm'>
 			{attributes.map((attr) => {
-				const Icon = iconMap[attr.icon ?? attr.slug] // <-- универсально: ищет по icon или slug
+				const Icon = iconMap[attr.icon ?? attr.slug]
 				const value = attr.values.find((v) => v.slug === selectedValues[attr.slug])?.value ?? '—'
 
 				return (

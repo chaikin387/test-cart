@@ -4,10 +4,10 @@ import Link from 'next/link'
 
 import { cn } from '@/lib/utils'
 import { useCategoryStore } from '@/store/category-store'
-import { CategoryMenuItem } from '@/types/category'
+import { CategoryBase } from '@/types/selects'
 
 interface CategoryMenuProps {
-	categories: CategoryMenuItem[]
+	categories: CategoryBase[]
 }
 
 export function CategoryMenu({ categories }: CategoryMenuProps) {
