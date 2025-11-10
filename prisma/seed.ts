@@ -1,8 +1,9 @@
+import bcrypt from 'bcrypt'
 import fs from 'fs'
 import path from 'path'
 import slugify from 'slugify'
 
-import { AttributeType, PrismaClient } from '@/generated/prisma'
+import { AttributeType, PrismaClient, Role } from '@/generated/prisma'
 
 const prisma = new PrismaClient()
 
@@ -20,7 +21,7 @@ const slug = (str: string) => slugify(str, { lower: true, strict: true })
 
 async function main() {
 	console.log('🧹 Очистка базы...')
-	// Корректный порядок очистки для соблюдения foreign key constraints
+
 	await prisma.$transaction([
 		prisma.variantImage.deleteMany(),
 		prisma.variantAttributeValue.deleteMany(),
@@ -29,16 +30,44 @@ async function main() {
 		prisma.productVariant.deleteMany(),
 		prisma.product.deleteMany(),
 		prisma.category.deleteMany(),
+		prisma.user.deleteMany(), // Добавлено удаление пользователей
 	])
+
+	/** ---------- Пользователи ---------- **/
+	console.log('👤 Создание пользователей...')
+
+	const usersPath = 'prisma/data/users/users.json'
+	const users = loadJson<
+		Array<{
+			name: string
+			email: string
+			password: string
+			role: string
+		}>
+	>(usersPath)
+
+	// Хешируем пароли и создаем пользователей параллельно
+	const userCreationPromises = users.map(async (user) => {
+		const hashedPassword = await bcrypt.hash(user.password, 10)
+		return prisma.user.create({
+			data: {
+				name: user.name,
+				email: user.email,
+				password: hashedPassword,
+				role: user.role as Role,
+			},
+		})
+	})
+
+	await Promise.all(userCreationPromises)
+	console.log(`✅ Создано ${users.length} пользователей.`)
 
 	/** ---------- Категории и атрибуты ---------- **/
 	console.log('📦 Создание категорий и атрибутов...')
 
-	// Новые пути к JSON-файлам категорий
 	const categoriesPathPizza = 'prisma/data/categories/pizzas-category.json'
 	const categoriesPathCoffee = 'prisma/data/categories/coffee-category.json'
 
-	// Загрузка и объединение категорий
 	const categories = [
 		...loadJson<
 			Array<{
@@ -68,12 +97,10 @@ async function main() {
 		>(categoriesPathCoffee),
 	]
 
-	// Карты для быстрого доступа к ID по именам
-	const categoriesMap = new Map<string, number>() // Map<categoryName, categoryId>
-	const attributesMap = new Map<number, Map<string, number>>() // Map<categoryId, Map<attrName, attrId>>
-	const valuesMap = new Map<number, Map<string, number>>() // Map<attrId, Map<valueName, valueId>>
+	const categoriesMap = new Map<string, number>()
+	const attributesMap = new Map<number, Map<string, number>>()
+	const valuesMap = new Map<number, Map<string, number>>()
 
-	// Создаем категории последовательно, т.к. нам нужны их ID для карт
 	for (const cat of categories) {
 		const category = await prisma.category.create({
 			data: { name: cat.name, slug: slug(cat.name) },
@@ -111,14 +138,12 @@ async function main() {
 	}
 	console.log(`✅ Создано ${categories.length} категорий.`)
 
-	/** ---------- Продукты и варианты (ОПТИМИЗАЦИЯ) ---------- **/
+	/** ---------- Продукты и варианты ---------- **/
 	console.log('🍕 Подготовка продуктов...')
 
-	// Новые пути к JSON-файлам продуктов
 	const productsPathPizza = 'prisma/data/products/pizzas-product.json'
 	const productsPathCoffee = 'prisma/data/products/coffee-product.json'
 
-	// Загрузка и объединение продуктов
 	const products = [
 		...loadJson<
 			Array<{
@@ -150,37 +175,30 @@ async function main() {
 		>(productsPathCoffee),
 	]
 
-	// 1. Подготавливаем массив "обещаний" (promises)
 	const productCreationPromises = products
 		.map((prod) => {
-			// Ищем ID категории. Если не нашли - пропускаем продукт.
 			const categoryId = categoriesMap.get(prod.category)
 			if (!categoryId) {
 				console.warn(`⚠️ [Пропуск] Категория "${prod.category}" не найдена для продукта "${prod.name}"`)
-				return null // Пропускаем этот продукт
+				return null
 			}
 
 			const attrMapForCategory = attributesMap.get(categoryId)
 			if (!attrMapForCategory) {
-				// Этого не должно случиться, если логика выше верна
 				console.error(`[Критично] Нет карты атрибутов для categoryId: ${categoryId}`)
 				return null
 			}
 
-			// Возвращаем Promise для создания продукта
 			return prisma.product.create({
 				data: {
 					name: prod.name,
 					slug: slug(prod.name),
 					description: prod.description,
 					categoryId,
-					// Вложенное создание вариантов и их связей
 					variants: {
 						create: prod.variants.map((v) => {
-							// Собираем связи M2M (Variant <-> AttributeValue)
 							const attributeValuesToLink = v.attributes
 								.map(({ attributeName, value }) => {
-									// Ищем ID атрибута
 									const attrId = attrMapForCategory.get(attributeName)
 									if (!attrId) {
 										console.warn(
@@ -189,7 +207,6 @@ async function main() {
 										return null
 									}
 
-									// Ищем ID значения
 									const valueMapForAttr = valuesMap.get(attrId)
 									if (!valueMapForAttr) {
 										console.error(`[Критично] Нет карты значений для attrId: ${attrId} ("${attributeName}")`)
@@ -204,18 +221,16 @@ async function main() {
 										return null
 									}
 
-									// Возвращаем объект для 'create' в M2M
 									return { attributeValueId: valId }
 								})
-								.filter((link): link is { attributeValueId: number } => !!link) // Убираем null (пропущенные атрибуты)
+								.filter((link): link is { attributeValueId: number } => !!link)
 
-							// Возвращаем данные для создания варианта
 							return {
 								name: v.name,
 								slug: slug(v.name),
 								price: v.price,
 								isDefault: v.isDefault,
-								stock: 0, // По умолчанию
+								stock: 0,
 								images: { create: v.images },
 								attributeValues: {
 									create: attributeValuesToLink,
@@ -226,9 +241,8 @@ async function main() {
 				},
 			})
 		})
-		.filter((promise): promise is ReturnType<typeof prisma.product.create> => Boolean(promise)) // Убираем пропущенные продукты (null)
+		.filter((promise): promise is ReturnType<typeof prisma.product.create> => Boolean(promise))
 
-	// 2. Выполняем все "обещания" параллельно в ОДНОЙ транзакции
 	console.log(`🌀 Создание ${productCreationPromises.length} продуктов...`)
 	await prisma.$transaction(productCreationPromises)
 
@@ -242,7 +256,5 @@ main()
 		process.exit(1)
 	})
 	.finally(async () => {
-		// Гарантированное закрытие соединения
 		await prisma.$disconnect()
 	})
-

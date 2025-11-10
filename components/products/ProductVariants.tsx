@@ -1,8 +1,9 @@
 'use client'
 
-import { ShoppingCart } from 'lucide-react'
+import { Loader2, ShoppingCart } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
+import { useCart } from '@/hooks/useCart'
 import { useProductVariants } from '@/hooks/useProductVariants'
 import { ProductPage } from '@/types/selects'
 import { formatPrice } from '@/utils/format-price'
@@ -16,22 +17,24 @@ interface ProductVariantsProps {
 }
 
 export function ProductVariants({ product }: ProductVariantsProps) {
-	const { selected, current, availableValues, isAvailable, handleSelect } = useProductVariants(product)
+	const { selected, currentVariant, availableValues, isAvailable, handleSelect } = useProductVariants(product)
+	const { addItem, isLoading } = useCart()
 
 	if (!product.variants.length) return <div className='text-muted-foreground p-6 text-center'>Нет вариантов</div>
 
+	const handleAddToCart = () => {
+		addItem.mutate({ variantId: currentVariant.id, quantity: 1 })
+	}
+
 	return (
 		<div className='grid gap-8 lg:grid-cols-2'>
-			<ProductImage image={current.images[0]} />
+			<ProductImage image={currentVariant.images[0]} />
 
 			<div className='flex flex-col gap-6'>
 				<h2 className='text-2xl font-bold'>{product.name}</h2>
 				<p className='text-muted-foreground'>{product.description}</p>
 
-				<ProductInfo
-					attributes={product.category.attributes}
-					selectedValues={selected}
-				/>
+				<ProductInfo variant={currentVariant} />
 
 				{product.category.attributes.map((attr) => (
 					<AttributeGroup
@@ -45,10 +48,22 @@ export function ProductVariants({ product }: ProductVariantsProps) {
 				))}
 
 				<div className='mt-auto border-t pt-6'>
-					<Button className='w-full'>
-						<ShoppingCart className='mr-2 size-5' />
-						Добавить в корзину
-						<span className='ml-2 font-bold'>{formatPrice(current.price)}</span>
+					<Button
+						className='w-full'
+						onClick={handleAddToCart}
+						disabled={addItem.isPending || isLoading}
+					>
+						{addItem.isPending || isLoading ? (
+							<>
+								<Loader2 className='mr-2 size-5 animate-spin' />
+							</>
+						) : (
+							<>
+								<ShoppingCart className='mr-2 size-5' />
+								Добавить в корзину
+								<span className='ml-2 font-bold'>{formatPrice(currentVariant.price)}</span>
+							</>
+						)}
 					</Button>
 				</div>
 			</div>

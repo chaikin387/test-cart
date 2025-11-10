@@ -1,8 +1,9 @@
+// components/product/ProductInfo.tsx
 'use client'
 
 import { Coffee, Pizza, Ruler } from 'lucide-react'
 
-import { AttributeWithValues } from '@/types/selects'
+import { VariantFull } from '@/types/selects'
 
 const iconMap: Record<string, React.ElementType> = {
 	coffee: Coffee,
@@ -11,28 +12,29 @@ const iconMap: Record<string, React.ElementType> = {
 }
 
 interface ProductInfoProps {
-	attributes: AttributeWithValues[]
-	selectedValues: Record<string, string>
+	variant: VariantFull
 }
 
-export function ProductInfo({ attributes, selectedValues }: ProductInfoProps) {
+export function ProductInfo({ variant }: ProductInfoProps) {
+	if (!variant.attributeValues.length) return null
+
 	return (
-		<div className='bg-accent flex flex-wrap gap-4 rounded-2xl p-4 text-sm'>
-			{attributes.map((attr) => {
-				const Icon = iconMap[attr.icon ?? attr.slug]
-				const value = attr.values.find((v) => v.slug === selectedValues[attr.slug])?.value ?? '—'
+		<div className='bg-accent flex flex-wrap gap-3 rounded-2xl p-4 text-sm'>
+			{variant.attributeValues.map(({ attributeValue }) => {
+				const Icon = iconMap[attributeValue.attribute.icon ?? attributeValue.attribute.slug]
 
 				return (
 					<div
-						key={attr.slug}
-						className='flex items-center gap-2'
+						key={attributeValue.id}
+						className='flex items-center gap-1'
 					>
 						{Icon && <Icon size={16} />}
-						<span className='text-primary font-medium'>{attr.name}:</span>
-						<span>{value}</span>
+						<span className='text-primary font-medium'>{attributeValue.attribute.name}:</span>
+						<span>{attributeValue.value}</span>
 					</div>
 				)
 			})}
 		</div>
 	)
 }
+

@@ -7,6 +7,7 @@
 			{
 				"name": "Маленький 0.2 л",
 				"price": 130,
+				"stock": 10,
 				"isDefault": true,
 				"attributes": [{ "attributeName": "Объем", "value": "0.2 л" }],
 				"images": [
@@ -20,6 +21,7 @@
 			{
 				"name": "Средний 0.3 л",
 				"price": 170,
+				"stock": 10,
 				"isDefault": false,
 				"attributes": [{ "attributeName": "Объем", "value": "0.3 л" }],
 				"images": [
@@ -41,6 +43,7 @@
 			{
 				"name": "Маленький 0.2 л",
 				"price": 130,
+				"stock": 10,
 				"isDefault": true,
 				"attributes": [{ "attributeName": "Объем", "value": "0.2 л" }],
 				"images": [
@@ -62,6 +65,7 @@
 			{
 				"name": "Маленький 0.2 л",
 				"price": 240,
+				"stock": 10,
 				"isDefault": true,
 				"attributes": [{ "attributeName": "Объем", "value": "0.2 л" }],
 				"images": [

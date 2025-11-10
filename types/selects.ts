@@ -153,7 +153,7 @@ export const categoryWithProductsSelect = {
 	products: {
 		where: { isActive: true },
 		orderBy: { id: 'desc' as const },
-		select: productCardBaseSelect, // <-- Обновлено
+		select: productCardBaseSelect,
 	},
 } satisfies Prisma.CategorySelect
 
@@ -170,3 +170,4 @@ export const categoryWithAttributesSelect = {
 } satisfies Prisma.CategorySelect
 
 export type CategoryWithAttributes = Prisma.CategoryGetPayload<{ select: typeof categoryWithAttributesSelect }>
+

@@ -120,6 +120,16 @@ exports.Prisma.TransactionIsolationLevel = makeStrictEnum({
   Serializable: 'Serializable'
 });
 
+exports.Prisma.UserScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  email: 'email',
+  password: 'password',
+  role: 'role',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name',
@@ -196,6 +206,24 @@ exports.Prisma.VariantImageScalarFieldEnum = {
   updatedAt: 'updatedAt'
 };
 
+exports.Prisma.CartScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  guestId: 'guestId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
+exports.Prisma.CartItemScalarFieldEnum = {
+  id: 'id',
+  cartId: 'cartId',
+  variantId: 'variantId',
+  quantity: 'quantity',
+  isSelected: 'isSelected',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+};
+
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -210,6 +238,11 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.Role = exports.$Enums.Role = {
+  ADMIN: 'ADMIN',
+  USER: 'USER'
+};
+
 exports.AttributeType = exports.$Enums.AttributeType = {
   SELECT: 'SELECT',
   COLOR: 'COLOR',
@@ -217,13 +250,16 @@ exports.AttributeType = exports.$Enums.AttributeType = {
 };
 
 exports.Prisma.ModelName = {
+  User: 'User',
   Category: 'Category',
   Attribute: 'Attribute',
   AttributeValue: 'AttributeValue',
   Product: 'Product',
   ProductVariant: 'ProductVariant',
   VariantAttributeValue: 'VariantAttributeValue',
-  VariantImage: 'VariantImage'
+  VariantImage: 'VariantImage',
+  Cart: 'Cart',
+  CartItem: 'CartItem'
 };
 
 /**

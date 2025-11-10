@@ -13,7 +13,7 @@ export const useProductVariants = (product: ProductPage) => {
 		),
 	)
 
-	const current = useMemo(
+	const currentVariant = useMemo(
 		() =>
 			product.variants.find((v) =>
 				v.attributeValues.every((av) => selected[av.attributeValue.attribute.slug] === av.attributeValue.slug),
@@ -46,7 +46,7 @@ export const useProductVariants = (product: ProductPage) => {
 
 	return {
 		selected,
-		current,
+		currentVariant,
 		availableValues,
 		isAvailable,
 		handleSelect,

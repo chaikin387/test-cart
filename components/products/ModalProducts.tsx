@@ -16,8 +16,7 @@ export function ModalProducts() {
 			<DialogTrigger asChild>
 				<Button
 					variant='secondary'
-					className='w-full border bg-white shadow-md hover:bg-gray-50'
-					size='sm'
+					className='bg-background/70 hover:bg-accent w-full border shadow-md'
 				>
 					Быстрый просмотр
 				</Button>
@@ -33,3 +32,4 @@ export function ModalProducts() {
 		</Dialog>
 	)
 }
+

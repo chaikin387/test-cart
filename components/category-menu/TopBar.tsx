@@ -54,7 +54,6 @@ export function TopBar({ categories }: TopBarProps) {
 								alt='Логотип'
 								width={40}
 								height={40}
-								priority
 							/>
 						</Link>
 						<CategoryMenu categories={categories} />

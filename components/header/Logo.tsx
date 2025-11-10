@@ -8,7 +8,6 @@ export const Logo = () => {
 			className='flex items-center gap-4'
 		>
 			<Image
-				priority={false}
 				src={'/icons/logo-pizza.svg'}
 				alt={'Логотип'}
 				width={40}

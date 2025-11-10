@@ -18,7 +18,6 @@ export function ProductImage({ image }: ProductImageProps) {
 					width={500}
 					height={500}
 					className='object-cover'
-					priority
 				/>
 			) : (
 				<p className='text-muted-foreground text-sm'>Нет изображения</p>

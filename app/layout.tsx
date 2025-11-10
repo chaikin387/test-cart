@@ -1,6 +1,7 @@
 import { Nunito } from 'next/font/google'
 
 import './globals.css'
+import { ReactQueryProvider } from './react-query-privider'
 
 const nunito = Nunito({
 	variable: '--font-nunito',
@@ -17,7 +18,9 @@ export default function RootLayout({
 			lang='ru'
 			data-scroll-behavior='smooth'
 		>
-			<body className={`${nunito.variable}`}>{children}</body>
+			<body className={`${nunito.variable}`}>
+				<ReactQueryProvider>{children}</ReactQueryProvider>
+			</body>
 		</html>
 	)
 }
