@@ -9,6 +9,7 @@ import {
 	DialogTitle,
 	DialogTrigger,
 } from '@/components/ui/dialog'
+import { cn } from '@/lib/utils'
 
 export function ModalProducts() {
 	return (
@@ -22,7 +23,7 @@ export function ModalProducts() {
 				</Button>
 			</DialogTrigger>
 
-			<DialogContent className='max-w-md'>
+			<DialogContent className={cn('bg-background rounded-3xl p-3 lg:min-h-[670px] lg:max-w-6xl')}>
 				<DialogHeader>
 					<DialogTitle className='sr-only'>Быстрый просмотр товара</DialogTitle>
 					<DialogDescription className='sr-only'>Детали товара в модальном окне</DialogDescription>

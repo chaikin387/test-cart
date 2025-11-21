@@ -1,6 +1,5 @@
+import prisma from '@/lib/prisma'
 import { ProductPage, productPageSelect } from '@/types/selects'
-
-import prisma from './prisma'
 
 export async function getProductWithRelations(categorySlug: string, productSlug: string): Promise<ProductPage | null> {
 	return prisma.product.findFirst({
@@ -15,3 +14,4 @@ export async function getProductWithRelations(categorySlug: string, productSlug:
 		select: productPageSelect,
 	})
 }
+

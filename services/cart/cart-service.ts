@@ -7,7 +7,7 @@ export const cartService = {
 		return prisma.cart.findUnique({ where: { guestId }, select: cartSelect })
 	},
 
-	async addItem(guestId: string, variantId: number, qty = 1) {
+	async addItem(guestId: string, variantId: number, qty = 1): Promise<Cart | null> {
 		if (qty <= 0) return this.get(guestId)
 
 		const cart = await prisma.cart.upsert({
@@ -26,7 +26,7 @@ export const cartService = {
 		return this.get(guestId)
 	},
 
-	async updateItem(guestId: string, variantId: number, qty: number) {
+	async updateItem(guestId: string, variantId: number, qty: number): Promise<Cart | null> {
 		const cart = await prisma.cart.findUnique({
 			where: { guestId },
 			select: { id: true },
@@ -47,7 +47,7 @@ export const cartService = {
 		return this.get(guestId)
 	},
 
-	async removeItem(guestId: string, variantId: number) {
+	async removeItem(guestId: string, variantId: number): Promise<Cart | null> {
 		const cart = await prisma.cart.findUnique({
 			where: { guestId },
 			select: { id: true },
@@ -60,7 +60,7 @@ export const cartService = {
 		return this.get(guestId)
 	},
 
-	async clearCart(guestId: string) {
+	async clearCart(guestId: string): Promise<void> {
 		await prisma.cart.deleteMany({ where: { guestId } })
 	},
 }

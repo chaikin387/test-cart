@@ -18,7 +18,8 @@ interface ProductVariantsProps {
 
 export function ProductVariants({ product }: ProductVariantsProps) {
 	const { selected, currentVariant, availableValues, isAvailable, handleSelect } = useProductVariants(product)
-	const { addItem, isLoading } = useCart()
+
+	const { addItem } = useCart()
 
 	if (!product.variants.length) return <div className='text-muted-foreground p-6 text-center'>Нет вариантов</div>
 
@@ -32,6 +33,7 @@ export function ProductVariants({ product }: ProductVariantsProps) {
 
 			<div className='flex flex-col gap-6'>
 				<h2 className='text-2xl font-bold'>{product.name}</h2>
+
 				<p className='text-muted-foreground'>{product.description}</p>
 
 				<ProductInfo variant={currentVariant} />
@@ -49,21 +51,17 @@ export function ProductVariants({ product }: ProductVariantsProps) {
 
 				<div className='mt-auto border-t pt-6'>
 					<Button
-						className='w-full'
+						className='flex w-full items-center justify-center gap-2'
 						onClick={handleAddToCart}
-						disabled={addItem.isPending || isLoading}
+						disabled={addItem.isPending}
 					>
-						{addItem.isPending || isLoading ? (
-							<>
-								<Loader2 className='mr-2 size-5 animate-spin' />
-							</>
-						) : (
-							<>
-								<ShoppingCart className='mr-2 size-5' />
-								Добавить в корзину
-								<span className='ml-2 font-bold'>{formatPrice(currentVariant.price)}</span>
-							</>
-						)}
+						<ShoppingCart className='mr-2 size-5' />
+
+						<span>Добавить в корзину</span>
+
+						<span className='font-bold'>{formatPrice(currentVariant.price)}</span>
+
+						{addItem.isPending && <Loader2 className='size-5 animate-spin' />}
 					</Button>
 				</div>
 			</div>

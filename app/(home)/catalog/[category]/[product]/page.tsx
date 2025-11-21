@@ -2,7 +2,7 @@ import { notFound } from 'next/navigation'
 
 import { Container } from '@/components/container/Container'
 import { ProductVariants } from '@/components/products/ProductVariants'
-import { getProductWithRelations } from '@/lib/products-service'
+import { getProductWithRelations } from '@/services/product/products-service'
 
 export const revalidate = 1800
 

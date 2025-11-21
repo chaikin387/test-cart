@@ -14,7 +14,7 @@ import { formatPrice } from '@/utils/format-price'
 export default function CheckoutClient() {
 	const { cart, updateItem, removeItem, clearCart } = useCart()
 
-	if (!cart || cart.items.length === 0) {
+	if (!cart?.items?.length) {
 		return (
 			<Container>
 				<div className='text-muted-foreground p-6 text-center'>Корзина пуста 😕</div>
@@ -22,7 +22,7 @@ export default function CheckoutClient() {
 		)
 	}
 
-	const total = cart.items.reduce((sum, i) => sum + i.variant.price * i.quantity, 0)
+	const total = cart?.items?.reduce((sum, i) => sum + (i.variant?.price ?? 0) * i.quantity, 0) ?? 0
 
 	return (
 		<Container>
@@ -93,3 +93,4 @@ export default function CheckoutClient() {
 		</Container>
 	)
 }
+

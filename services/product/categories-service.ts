@@ -1,6 +1,5 @@
+import prisma from '@/lib/prisma'
 import { CategoryWithProducts, categoryWithProductsSelect } from '@/types/selects'
-
-import prisma from './prisma'
 
 export async function getActiveCategories(): Promise<CategoryWithProducts[]> {
 	return prisma.category.findMany({
@@ -17,3 +16,4 @@ export async function getActiveCategories(): Promise<CategoryWithProducts[]> {
 		orderBy: { id: 'asc' },
 	})
 }
+

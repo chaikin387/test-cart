@@ -1,7 +1,7 @@
 import { TopBar } from '@/components/category-menu/TopBar'
 import { Container } from '@/components/container/Container'
 import { ProductSection } from '@/components/products/ProductSection'
-import { getActiveCategories } from '@/lib/categories-service'
+import { getActiveCategories } from '@/services/product/categories-service'
 
 export default async function HomePage() {
 	const categories = await getActiveCategories()

@@ -45,3 +45,4 @@ export function AttributeGroup({ attr, selected, onSelect, isAvailable, availabl
 		</div>
 	)
 }
+

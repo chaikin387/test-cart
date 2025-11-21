@@ -1,6 +1,10 @@
+'use client'
+
+import { Loader2 } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { useCart } from '@/hooks/useCart'
 import { ProductCardBase } from '@/types/selects'
 import { formatPrice } from '@/utils/format-price'
 
@@ -12,16 +16,29 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+	const { addItem } = useCart()
+
 	const variant = product.variants[0]
+
 	if (!variant?.images[0]) return null
 
 	const prices = product.variants.map((v) => v.price)
+
 	const minPrice = Math.min(...prices)
+
 	const maxPrice = Math.max(...prices)
 
 	const hasMultipleVariants = product.variants.length > 1
+
 	const hasPriceRange = minPrice !== maxPrice
+
 	const productHref = `/catalog/${product.category.slug}/${product.slug}`
+
+	const handleAddToCart = (e: React.MouseEvent) => {
+		e.preventDefault()
+
+		addItem.mutate({ variantId: variant.id, quantity: 1 })
+	}
 
 	return (
 		<Link
@@ -52,10 +69,25 @@ export function ProductCard({ product }: ProductCardProps) {
 
 			<div className='mt-auto mb-2 w-full text-center text-lg font-bold'>
 				{hasPriceRange && 'от '}
+
 				{formatPrice(minPrice)}
 			</div>
 
-			<Button className='w-full'>{hasMultipleVariants ? 'Выбрать' : 'В корзину'}</Button>
+			{hasMultipleVariants ? (
+				<Button className='w-full'>Выбрать</Button>
+			) : (
+				<Button
+					className='flex w-full items-center justify-center gap-2'
+					onClick={handleAddToCart}
+					disabled={addItem.isPending}
+				>
+					<span>В корзину</span>
+
+					<span className={addItem.isPending ? 'visible' : 'invisible'}>
+						<Loader2 className='size-5 animate-spin' />
+					</span>
+				</Button>
+			)}
 		</Link>
 	)
 }
