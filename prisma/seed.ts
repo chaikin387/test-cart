@@ -30,7 +30,7 @@ async function main() {
 		prisma.productVariant.deleteMany(),
 		prisma.product.deleteMany(),
 		prisma.category.deleteMany(),
-		prisma.user.deleteMany(), // Добавлено удаление пользователей
+		prisma.user.deleteMany(),
 	])
 
 	/** ---------- Пользователи ---------- **/
@@ -258,3 +258,4 @@ main()
 	.finally(async () => {
 		await prisma.$disconnect()
 	})
+

@@ -16,7 +16,7 @@ export default function RootLayout({
 	return (
 		<html
 			lang='ru'
-			data-scroll-behavior='smooth'
+			className='scroll-smooth'
 		>
 			<body className={`${nunito.variable}`}>
 				<ReactQueryProvider>{children}</ReactQueryProvider>

@@ -4,16 +4,16 @@ import { Prisma } from '@/generated/prisma'
 // ========== BASE SELECTS (Базовые селекты) ==========
 
 // Базовый селект для категории (минимальный набор полей)
-export const categoryBaseSelect = {
+export const categorySelect = {
 	id: true,
 	name: true,
 	slug: true,
 } satisfies Prisma.CategorySelect
 
-export type CategoryBase = Prisma.CategoryGetPayload<{ select: typeof categoryBaseSelect }>
+export type CategoryBase = Prisma.CategoryGetPayload<{ select: typeof categorySelect }>
 
 // Базовый селект для атрибута
-export const attributeBaseSelect = {
+export const attributeSelect = {
 	id: true,
 	name: true,
 	slug: true,
@@ -23,10 +23,10 @@ export const attributeBaseSelect = {
 	position: true,
 } satisfies Prisma.AttributeSelect
 
-export type AttributeBase = Prisma.AttributeGetPayload<{ select: typeof attributeBaseSelect }>
+export type AttributeBase = Prisma.AttributeGetPayload<{ select: typeof attributeSelect }>
 
 // Базовый селект для значения атрибута
-export const attributeValueBaseSelect = {
+export const attributeValueSelect = {
 	id: true,
 	value: true,
 	slug: true,
@@ -34,42 +34,43 @@ export const attributeValueBaseSelect = {
 	position: true,
 } satisfies Prisma.AttributeValueSelect
 
-export type AttributeValueBase = Prisma.AttributeValueGetPayload<{ select: typeof attributeValueBaseSelect }>
+export type AttributeValueBase = Prisma.AttributeValueGetPayload<{ select: typeof attributeValueSelect }>
 
 // Базовый селект для изображения варианта
-export const variantImageBaseSelect = {
+export const variantImageSelect = {
+	id: true,
 	url: true,
 	alt: true,
 	position: true,
 } satisfies Prisma.VariantImageSelect
 
-export type VariantImageBase = Prisma.VariantImageGetPayload<{ select: typeof variantImageBaseSelect }>
+export type VariantImageBase = Prisma.VariantImageGetPayload<{ select: typeof variantImageSelect }>
 
 // Базовый селект для продукта (минимальный набор полей)
-export const productBaseSelect = {
+export const productSelect = {
 	id: true,
 	name: true,
 	slug: true,
 } satisfies Prisma.ProductSelect
 
-export type ProductBase = Prisma.ProductGetPayload<{ select: typeof productBaseSelect }>
+export type ProductBase = Prisma.ProductGetPayload<{ select: typeof productSelect }>
 
 // ========== COMPOSITE SELECTS (Составные селекты) ==========
 
 // Атрибут с активными значениями, упорядоченными по позиции
 export const attributeWithValuesSelect = {
-	...attributeBaseSelect,
+	...attributeSelect,
 	values: {
 		where: { isActive: true },
 		orderBy: { position: 'asc' as const },
-		select: attributeValueBaseSelect,
+		select: attributeValueSelect,
 	},
 } satisfies Prisma.AttributeSelect
 
 export type AttributeWithValues = Prisma.AttributeGetPayload<{ select: typeof attributeWithValuesSelect }>
 
 // Базовый селект варианта продукта вместе с активными изображениями
-export const variantBaseSelect = {
+export const variantSelect = {
 	id: true,
 	name: true,
 	slug: true,
@@ -77,48 +78,48 @@ export const variantBaseSelect = {
 	images: {
 		where: { isActive: true },
 		orderBy: { position: 'asc' as const },
-		select: variantImageBaseSelect,
+		select: variantImageSelect,
 	},
 } satisfies Prisma.ProductVariantSelect
 
-export type VariantBase = Prisma.ProductVariantGetPayload<{ select: typeof variantBaseSelect }>
+export type VariantBase = Prisma.ProductVariantGetPayload<{ select: typeof variantSelect }>
 
 // Полный селект варианта продукта с запасом, дефолтностью и значениями атрибутов
-export const variantFullSelect = {
-	...variantBaseSelect,
+export const variantDetailedSelect = {
+	...variantSelect,
 	stock: true,
 	isDefault: true,
 	attributeValues: {
 		select: {
 			attributeValue: {
 				select: {
-					...attributeValueBaseSelect,
-					attribute: { select: attributeBaseSelect },
+					...attributeValueSelect,
+					attribute: { select: attributeSelect },
 				},
 			},
 		},
 	},
 } satisfies Prisma.ProductVariantSelect
 
-export type VariantFull = Prisma.ProductVariantGetPayload<{ select: typeof variantFullSelect }>
+export type VariantFull = Prisma.ProductVariantGetPayload<{ select: typeof variantDetailedSelect }>
 
 // ========== PRODUCT SELECTS (Селекты для продуктов) ==========
 
 // Селект для карточки продукта (используется компонентом ProductCard)
-export const productCardBaseSelect = {
+export const productCardSelect = {
 	id: true,
 	name: true,
 	slug: true,
 	description: true,
-	category: { select: categoryBaseSelect },
+	category: { select: categorySelect },
 	variants: {
 		where: { isActive: true },
 		orderBy: { isDefault: 'desc' as const },
-		select: variantBaseSelect,
+		select: variantSelect,
 	},
 } satisfies Prisma.ProductSelect
 
-export type ProductCardBase = Prisma.ProductGetPayload<{ select: typeof productCardBaseSelect }>
+export type ProductCardBase = Prisma.ProductGetPayload<{ select: typeof productCardSelect }>
 
 // Полный селект для страницы продукта с категорией, атрибутами и вариантами
 export const productPageSelect = {
@@ -128,7 +129,7 @@ export const productPageSelect = {
 	description: true,
 	category: {
 		select: {
-			...categoryBaseSelect,
+			...categorySelect,
 			attributes: {
 				where: { isActive: true },
 				orderBy: { position: 'asc' as const },
@@ -139,21 +140,46 @@ export const productPageSelect = {
 	variants: {
 		where: { isActive: true },
 		orderBy: [{ isDefault: 'desc' as const }, { id: 'asc' as const }],
-		select: variantFullSelect,
+		select: variantDetailedSelect,
 	},
 } satisfies Prisma.ProductSelect
 
 export type ProductPage = Prisma.ProductGetPayload<{ select: typeof productPageSelect }>
 
+// Селект для быстрого просмотра продукта
+export const productQuickViewSelect = {
+	id: true,
+	name: true,
+	slug: true,
+	description: true,
+	category: {
+		select: {
+			...categorySelect,
+			attributes: {
+				where: { isActive: true },
+				orderBy: { position: 'asc' as const },
+				select: attributeWithValuesSelect,
+			},
+		},
+	},
+	variants: {
+		where: { isActive: true },
+		orderBy: [{ isDefault: 'desc' as const }, { id: 'asc' as const }],
+		select: variantDetailedSelect,
+	},
+} satisfies Prisma.ProductSelect
+
+export type ProductQuickView = Prisma.ProductGetPayload<{ select: typeof productQuickViewSelect }>
+
 // ========== CATEGORY SELECTS (Селекты для категорий) ==========
 
 // Категория с активными продуктами (для главной страницы или меню)
 export const categoryWithProductsSelect = {
-	...categoryBaseSelect,
+	...categorySelect,
 	products: {
 		where: { isActive: true },
 		orderBy: { id: 'desc' as const },
-		select: productCardBaseSelect,
+		select: productCardSelect,
 	},
 } satisfies Prisma.CategorySelect
 
@@ -161,7 +187,7 @@ export type CategoryWithProducts = Prisma.CategoryGetPayload<{ select: typeof ca
 
 // Категория с атрибутами и их значениями
 export const categoryWithAttributesSelect = {
-	...categoryBaseSelect,
+	...categorySelect,
 	attributes: {
 		where: { isActive: true },
 		orderBy: { position: 'asc' as const },
@@ -170,4 +196,3 @@ export const categoryWithAttributesSelect = {
 } satisfies Prisma.CategorySelect
 
 export type CategoryWithAttributes = Prisma.CategoryGetPayload<{ select: typeof categoryWithAttributesSelect }>
-

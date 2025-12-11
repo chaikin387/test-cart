@@ -43,7 +43,7 @@ export function TopBar({ categories }: TopBarProps) {
 				<Container className='flex items-center justify-between'>
 					<div className='flex items-center'>
 						<Link
-							href='/'
+							href='#top-header'
 							className={`shrink-0 transition-all duration-500 ease-out ${
 								isSticky ? 'translate-x-0 pr-3 opacity-100' : 'w-0 -translate-x-full opacity-0'
 							}`}

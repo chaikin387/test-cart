@@ -1,11 +1,11 @@
 // types/cart-selects.ts
 import { Prisma } from '@/generated/prisma'
 
-import { productBaseSelect, variantFullSelect } from './selects'
+import { productSelect, variantDetailedSelect } from './selects'
 
 export const cartVariantSelect = {
-	...variantFullSelect,
-	product: { select: productBaseSelect },
+	...variantDetailedSelect,
+	product: { select: productSelect },
 } satisfies Prisma.ProductVariantSelect
 
 export type CartVariant = Prisma.ProductVariantGetPayload<{ select: typeof cartVariantSelect }>
